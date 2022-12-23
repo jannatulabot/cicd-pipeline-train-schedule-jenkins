@@ -17,13 +17,13 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots package
-      - name: Create zip bundle
-        run: 
-            mkdir zipped-bundle && cp target/*.jar zipped-bundle
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Execute Gradle build
+        run:
+              ./gradlew build
       - name: Archive artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Package
-          path: zipped-bundle
+          name: zipped-bundle
+          path: build/reports
