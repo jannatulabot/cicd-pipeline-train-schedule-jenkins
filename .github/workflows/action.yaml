@@ -22,7 +22,7 @@ jobs:
       - name: Execute Gradle build
         run:  ./gradlew build
       - name: Run app
-        uses: ./gradlew npm_start
+        run:  ./gradlew npm_start
       - name: Archive artifact
         uses: actions/upload-artifact@v3
         with:
