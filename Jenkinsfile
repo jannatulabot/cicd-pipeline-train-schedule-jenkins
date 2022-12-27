@@ -13,7 +13,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'e865f1b8-0efa-466e-a88b-2974b6e9aedc', usernameVariable: 'ec2-user', passwordVariable: 'USERPASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'e865f1b8-0efa-466e-a88b-2974b6e9aedc', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
@@ -21,7 +21,7 @@ pipeline {
                             sshPublisherDesc(
                                 configName: 'staging',
                                 sshCredentials: [
-                                    username: "ec2-user",
+                                    username: "$USERNAME",
                                     encryptedPassphrase: "$USERPASS"
                                 ], 
                                 transfers: [
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
-                withCredentials([usernamePassword(credentialsId: 'e865f1b8-0efa-466e-a88b-2974b6e9aedc', usernameVariable: 'ec2-user', passwordVariable: 'USERPASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'e865f1b8-0efa-466e-a88b-2974b6e9aedc', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
@@ -53,7 +53,7 @@ pipeline {
                             sshPublisherDesc(
                                 configName: 'production',
                                 sshCredentials: [
-                                    username: "ec2-user",
+                                    username: "$USERNAME",
                                     encryptedPassphrase: "$USERPASS"
                                 ], 
                                 transfers: [
